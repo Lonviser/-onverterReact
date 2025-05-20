@@ -1,7 +1,35 @@
 .replacment-btn {
-    background: white;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: transform 0.2s;
 }
-.replacment-btn img{ 
-    width: 32px;
-    height: 32px;
+
+.replacment-btn img {
+  width: 32px;
+  height: 32px;
+}
+
+.replacment-btn:hover {
+  transform: scale(1.1);
+}
+
+.card {
+  border-radius: 10px;
+  background: #f8f9fa;
+}
+
+.result {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

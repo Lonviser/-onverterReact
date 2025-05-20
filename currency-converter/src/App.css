@@ -1,1 +1,12 @@
 
+body {
+  background: #e9ecef;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 800px;
+}
