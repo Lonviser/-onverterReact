@@ -15,11 +15,19 @@ function CurrencyConverter({ rates }) {
       return (amount / rates[fromCurrency]) * rates[toCurrency];
     }
   };
-  useEffect(() => {
-    if (!rates) return;
+useEffect(() => {
+  if (
+    Object.keys(rates).length > 0 &&
+    rates[fromCurrency] &&
+    rates[toCurrency] &&
+    amount > 0
+  ) {
     const res = convert(Number(amount), fromCurrency, toCurrency, rates);
     setResult(res);
-  }, [amount, fromCurrency, toCurrency, rates]);
+  } else {
+    setResult(0);
+  }
+}, [amount, fromCurrency, toCurrency, rates]);
 
   // Обработчик для input
   const handleAmountChange = (e) => {
@@ -35,7 +43,7 @@ function CurrencyConverter({ rates }) {
     setToCurrency(e.target.value);
   };
 
-  console.log(amount);
+  const currencies = ["BYN", "USD", "EUR", "RUB", "PLN"];
   return (
     <div className="converter-form container mt-5">
       <h1>Конвертер валют</h1>
@@ -50,29 +58,34 @@ function CurrencyConverter({ rates }) {
           />
         </div>
         <div className="col-md-3">
-          <select
+            <select
             className="form-select"
             value={fromCurrency}
             onChange={handleFromCurrencyChange}
-          >
-            <option value="BYN">BYN</option>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="RUB">RUB</option>
-            <option value="PLN">PLN</option>
-          </select>
+            >
+            {currencies
+                .filter((currency) => currency !== toCurrency)
+                .map((currency) => (
+                <option key={currency} value={currency}>
+                    {currency}
+                </option>
+                ))}
+            </select>
         </div>
         <div className="col-md-3">
-          <select
+            <select
             className="form-select"
             value={toCurrency}
-            onChange={handleToCurrencyChange}>
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-            <option value="RUB">RUB</option>
-            <option value="PLN">PLN</option>
-            <option value="BYN">BYN</option>
-          </select>
+            onChange={handleToCurrencyChange}
+            >
+            {currencies
+                .filter((currency) => currency !== fromCurrency)
+                .map((currency) => (
+                <option key={currency} value={currency}>
+                    {currency}
+                </option>
+                ))}
+            </select>
         </div>
       </div>
       <div className="mt-3">
