@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function CurrencyConverter({ rates }) {
   const [amount, setAmount] = useState(0);
@@ -15,6 +15,11 @@ function CurrencyConverter({ rates }) {
       return (amount / rates[fromCurrency]) * rates[toCurrency];
     }
   };
+  useEffect(() => {
+    if (!rates) return;
+    const res = convert(Number(amount), fromCurrency, toCurrency, rates);
+    setResult(res);
+  }, [amount, fromCurrency, toCurrency, rates]);
 
   // Обработчик для input
   const handleAmountChange = (e) => {
@@ -72,7 +77,7 @@ function CurrencyConverter({ rates }) {
       </div>
       <div className="mt-3">
         <h3>
-          Результат: <span>{amount}</span>
+          Результат: <span>{result.toFixed(3)}</span>
         </h3>
       </div>
     </div>
