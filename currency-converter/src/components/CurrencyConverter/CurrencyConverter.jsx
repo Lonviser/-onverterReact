@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import replacment from '../assets/replacment.png';
+import replacment from '../../assets/replacment.png';
 import './CurrencyConverter.css';
 
 function CurrencyConverter({ rates, isLoading, error }) {

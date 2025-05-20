@@ -1,6 +1,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CurrencyConverter from './components/CurrencyConverter';
+import CurrencyConverter from './components/CurrencyConverter/CurrencyConverter';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -33,7 +35,11 @@ function App() {
   }, []);
 
   return (
+    <>
+    <Header/>
     <CurrencyConverter rates={rates} isLoading={isLoading} error={error} />
+    <Footer/>
+    </>
   );
 }
 
