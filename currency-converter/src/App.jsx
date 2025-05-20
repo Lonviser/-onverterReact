@@ -1,38 +1,31 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CurrencyConverter from './components/CurrencyConverter';
+import { useEffect } from 'react';
 
 function App() {
+
+useEffect(() => {
+  async function fetchRates() {
+    try {
+      const response = await fetch('https://api.nbrb.by/exrates/rates?periodicity=0');
+      const data = await response.json();
+      const ratesObj = data.reduce((acc, curr) => {
+        acc[curr.Cur_Abbreviation] = curr.Cur_OfficialRate / curr.Cur_Scale;
+        return acc;
+      }, { BYN: 1 });
+      setRates(ratesObj);
+    } catch (error) {
+      console.error('Ошибка API:', error);
+    }
+  }
+  fetchRates();
+}, []);
+
+
   return (
-    <div className="container mt-5">
-      <h1>Конвертер валют</h1>
-      <div className="row">
-        <div className="col-md-6">
-          <input type="number" className="form-control" placeholder="Введите сумму" />
-        </div>
-        <div className="col-md-3">
-          <select className="form-select">
-            <option>BYN</option>
-            <option>USD</option>
-            <option>EUR</option>
-            <option>RUB</option>
-            <option>PLN</option>
-          </select>
-        </div>
-        <div className="col-md-3">
-          <select className="form-select">
-            <option>USD</option>
-            <option>EUR</option>
-            <option>RUB</option>
-            <option>PLN</option>
-            <option>BYN</option>
-          </select>
-        </div>
-      </div>
-      <div className="mt-3">
-        <h3>Результат: <span>0</span></h3>
-      </div>
-    </div>
-  );
+    <CurrencyConverter/>
+  )
 }
 
 export default App
