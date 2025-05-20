@@ -1,9 +1,10 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CurrencyConverter from './components/CurrencyConverter';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [rates,setRates] = useState({});
 
 useEffect(() => {
   async function fetchRates() {
@@ -22,9 +23,8 @@ useEffect(() => {
   fetchRates();
 }, []);
 
-
   return (
-    <CurrencyConverter/>
+    <CurrencyConverter  rates={rates}/>
   )
 }
 
