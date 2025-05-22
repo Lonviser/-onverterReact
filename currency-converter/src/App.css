@@ -1,11 +1,18 @@
-
-body {
-  background: #e9ecef;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+html, body {
+  height: 100%; /* Убедитесь, что html и body занимают всю высоту окна */
+  margin: 0; /* Уберите отступы по умолчанию */
 }
 
-.container {
-  max-width: 800px;
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Минимальная высота должна быть равна высоте экрана */
+}
+
+.container.mt-5 {
+  flex: 1; /* Основной контент будет растягиваться, чтобы заполнить пространство */
+}
+
+.footer {
+  flex-shrink: 0; /* Футер не должен сжиматься */
 }
