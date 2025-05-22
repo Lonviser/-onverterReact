@@ -10,15 +10,22 @@ function CurrencyConverter({ rates, isLoading, error }) {
 
   const currencies = ["BYN", "USD", "EUR", "RUB", "PLN"];
 
-  const convert = (amount, fromCurrency, toCurrency, rates) => {
-    if (fromCurrency === "BYN") {
-      return amount * rates[toCurrency];
-    } else if (toCurrency === "BYN") {
-      return amount / rates[fromCurrency];
-    } else {
-      return (amount / rates[fromCurrency]) * rates[toCurrency];
-    }
-  };
+const convert = (amount, fromCurrency, toCurrency, rates) => {
+  if (!rates || !rates[fromCurrency] || !rates[toCurrency]) return 0;
+
+  let amountInBYN;
+  if (fromCurrency === "BYN") {
+    amountInBYN = amount;
+  } else {
+    amountInBYN = amount * rates[fromCurrency]; 
+  }
+
+  if (toCurrency === "BYN") {
+    return amountInBYN;
+  } else {
+    return amountInBYN / rates[toCurrency]; 
+  }
+};
 
   useEffect(() => {
     if (
